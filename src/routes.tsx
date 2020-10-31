@@ -5,6 +5,9 @@ import Landing from './pages/Landing';
 import OrphanagesMap from './pages/OrphanagesMap';
 import CreateOrphanage from './pages/CreateOrphanage';
 import Orphanage from './pages/Orphanage';
+import Login from './pages/Login';
+import Cadastro from './pages/Cadastro';
+import Page404 from './pages/Page404';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
@@ -14,6 +17,11 @@ const Routes: React.FC = () => (
 
       <Route path="/orphanages/create" exact component={CreateOrphanage} />
       <Route path="/orphanages/:id" exact component={Orphanage} />
+
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Cadastro} />
+
+      <Route component={Page404} />
     </Switch>
   </BrowserRouter>
 );

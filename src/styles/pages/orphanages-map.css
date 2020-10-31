@@ -99,3 +99,70 @@
 #page-map .map-popup .leaflet-popup-tip-container {
   display: none;
 }
+
+#page-map aside .login-group{
+  margin-top: 40px;
+  display: flex;
+}
+
+#page-map aside .register-link {
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  margin-right: 20px;
+}
+
+#page-map aside .login-link {
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  /* padding-left: 10px; */
+  /* border-left: 10px solid #17d6eb; */
+  position: relative;
+  z-index: 10;
+}
+
+#page-map aside .login-link:hover {
+  color: rgb(211, 255, 248);
+}
+
+#page-map aside .login-link:hover .login-icon {
+  transform: translateX(10px);
+}
+
+#page-map .floating-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: #15c3d6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+#page-map .floating-btn:hover {
+  background: #17d6eb;
+  right: 35px;
+}
+
+#page-map .create-orph {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+}
+
+#page-map .logout {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
