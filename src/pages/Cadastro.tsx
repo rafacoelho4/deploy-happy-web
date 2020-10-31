@@ -12,7 +12,6 @@ const Cadastro = () => {
     const [ email, setEmail ] = useState('');
     const [ senha, setSenha ] = useState('');
     const [ confirmSenha, setConfirmSenha ] = useState('');
-    const [ rememberPassword, setRememberPassword ] = useState(false);
 
     const [ openSenha, setOpenSenha ] = useState(false);
     const [ openConfirmSenha, setOpenConfirmSenha ] = useState(false);
@@ -121,13 +120,13 @@ const Cadastro = () => {
                         <div className="input-block">
                             <label htmlFor="email">E-mail
                                 {
-                                    errorStatus == '406' ? <span className="error-msg">Email já está cadastrado</span> : ''
+                                    errorStatus === '406' ? <span className="error-msg">Email já está cadastrado</span> : ''
                                 }
                                 {
-                                    errorStatus == '412' ? <span className="error-msg">Campo vazio</span> : ''
+                                    errorStatus === '412' ? <span className="error-msg">Campo vazio</span> : ''
                                 }
                                 {
-                                    errorStatus == '417' ? <span className="error-msg">Email não existe</span> : ''
+                                    errorStatus === '417' ? <span className="error-msg">Email não existe</span> : ''
                                 }
                             </label>
                             <input 
@@ -135,22 +134,22 @@ const Cadastro = () => {
                                 type="email"
                                 value={email}
                                 onChange={handleEmail}
-                                className={errorStatus == '406' || errorStatus === '412' || errorStatus === '417' ? 'error' : ''}
+                                className={errorStatus === '406' || errorStatus === '412' || errorStatus === '417' ? 'error' : ''}
                                 />
                         </div>
                         <div className="input-block senha">
                             <label htmlFor="senha">Senha
                                 {
-                                    errorStatus == '409' ? <span className="error-msg">Esses campos são diferentes</span> : ''
+                                    errorStatus === '409' ? <span className="error-msg">Esses campos são diferentes</span> : ''
                                 }
                                 {
-                                    errorStatus == '411' ? <span className="error-msg">Campo vazio</span> : ''
+                                    errorStatus === '411' ? <span className="error-msg">Campo vazio</span> : ''
                                 }
                                 {
-                                    errorStatus == '416' ? <span className="error-msg">Senha muito curta</span> : ''
+                                    errorStatus === '416' ? <span className="error-msg">Senha muito curta</span> : ''
                                 }
                                 {
-                                    errorStatus == '413' ? <span className="error-msg">Senha grande demais</span> : ''
+                                    errorStatus === '413' ? <span className="error-msg">Senha grande demais</span> : ''
                                 }
                             </label>
                             <input 
@@ -182,7 +181,7 @@ const Cadastro = () => {
                         <div className="input-block senha">
                             <label htmlFor="confirm-senha">Confirmar senha
                                 {
-                                    errorStatus == '409' ? <span className="error-msg">Esses campos são diferentes</span> : ''
+                                    errorStatus === '409' ? <span className="error-msg">Esses campos são diferentes</span> : ''
                                 }
                             </label>
                             <input
@@ -190,7 +189,7 @@ const Cadastro = () => {
                                 type={openConfirmSenha ? "text" : "password"}
                                 value={confirmSenha}
                                 onChange={handleConfirmSenha}
-                                className={errorStatus == '409' ? 'error' : ''}
+                                className={errorStatus === '409' ? 'error' : ''}
                             />
                             {
                                 !openConfirmSenha ? 
