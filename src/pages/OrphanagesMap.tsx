@@ -1,78 +1,136 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiPlus } from 'react-icons/fi';
+import { FiPlus, FiArrowRight, FiLogIn, FiLogOut } from 'react-icons/fi';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
-import mapMarkerImg from '../images/map-marker.svg';
+import mapMarker from '../images/map-marker.svg';
+import '../styles/pages/orphanagesMap.css';
 import mapIcon from '../utils/mapIcon';
 import api from '../services/api';
 
-import '../styles/global.css';
-import '../styles/pages/orphanages-map.css';
-
 interface Orphanage {
-  id: number;
-  latitude: number;
-  longitude: number;
-  name: string;
+  id: number,
+  name: string,
+  latitude: number,
+  longitude: number,
 }
 
-const OrphanagesMap: React.FC = () => {
-  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+function OrphanagesMap() {
+  const [ orphanages, setOrphanages ] = useState<Orphanage[]>([]);
+
+  const [ loggedIn, setLoggedIn ] = useState(false);
+  const [ id, setId ] = useState('');
+  
+  let token = '';
+  let user_id = '';
+
+  const carregarOrfanatos = async () => {
+    try {
+      const response = await api.get('/orphanages').then(response => {
+        setOrphanages(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    api.get('orphanages').then(response => {
-      setOrphanages(response.data);
-    })
-  }, []);
+    token = localStorage.getItem('@token') as string;
+    user_id = localStorage.getItem('@user_id') as string;
+    setId(user_id);
+    if(token) setLoggedIn(true);
+    else setLoggedIn(false);
+    carregarOrfanatos();
+  }, [token, user_id]);
 
   return (
     <div id="page-map">
-    <aside>
-      <header>
-        <img src={mapMarkerImg} alt="Happy" />
+    	<aside>
+          <header>
+              {
+                loggedIn === true ? (
+                  <Link to={`/user/${id}`} >
+                    <img src={mapMarker} alt="Map Marker"/>
+                  </Link>
+                ) : (
+                  <Link to="/" >
+                    <img src={mapMarker} alt="Map Marker"/>
+                  </Link>
+                )
+              }
+              <h2>Escolha um orfanato no mapa</h2>
+              <p>Muitas crianças estão esperando sua visita :{')'}</p>
+          </header>
+          <footer>
+              <strong>Ouro Preto</strong>
+              <span>Minas Gerais</span>
+              {
+                loggedIn === true ? '' : (
+                  <div className="login-group">
+                    <Link to="/register" className="login-link register-link">
+                      Criar conta
+                    </Link>
+                    <Link to="/login" className="login-link" >
+                      Entrar
+                    </Link>
+                  </div>
+                )
+              }
+          </footer>
+        </aside>
 
-        <h2>Escolha um orfanato no mapa</h2>
-        <p>Muitas crianças estão esperando a sua visita :)</p>
-      </header>
-
-      <footer>
-        <strong>Ouro Preto</strong>
-        <span>Minas Gerais</span>
-      </footer>
-    </aside>
-
-    <Map
-      center={[-6.8001529, -42.2843776]}
-      zoom={15}
-      style={{ width: '100%', height: '100%' }}
-    >
-      {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */}
-      <TileLayer
-        url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-      />
-
-      {orphanages.map(orphanage => (
-        <Marker
-        key={orphanage.id}
-        icon={mapIcon}
-        position={[orphanage.latitude, orphanage.longitude]}
+        <Map
+          center={[-20.3845353,-43.510699]}
+          zoom={20}
+          style={{
+            width: '100%',
+            height: '100%'
+          }}
         >
-          <Popup closeButton={false}  minWidth={240} maxWidth={240} className="map-popup">
-            {orphanage.name}
-            <Link to={`/orphanages/${orphanage.id}`}>
-              <FiArrowRight size={20} color="#fff" />
-            </Link>
-          </Popup>
-        </Marker>
-      ))}
-    </Map>
+          <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {
+            orphanages.map((orphanage, index) => {
+              return(
+                <Marker
+                  position={[orphanage.latitude,orphanage.longitude]}
+                  icon={mapIcon}
+                  alt={`Orfanato: ${orphanage.name}`}
+                  key={orphanage.id}
+                >
+                  <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                    {orphanage.name}
+                    <Link to={`/orphanages/${orphanage.id}`} >
+                      <FiArrowRight size={20} color="#fff" />
+                    </Link>
+                  </Popup>
+              </Marker>
+              );
+            })
+          }
+        </Map>
 
-    <Link to="/orphanages/create" className="create-orphanage">
-      <FiPlus size={32} color="#fff" />
-    </Link>
-  </div>
+        {
+          loggedIn == true ? (
+            <Link to={`/orphanages/create/${id}`} className="floating-btn create-orph">
+              <FiPlus size={32} color="#fff" />
+            </Link>
+          ) : (
+            <Link to="/login" className="floating-btn create-orph">
+              <FiPlus size={32} color="#fff" />
+            </Link>
+          )
+        }
+        
+
+        {
+          loggedIn === true ? (
+            <Link to="/logout" className="floating-btn logout">
+              <FiLogOut size={32} color="#fff" />
+            </Link>
+          ) : ''
+        }
+    </div>
   );
-};
+}
 
 export default OrphanagesMap;
