@@ -9,7 +9,7 @@ const Registered = () => {
         <div id="registered-page">
             <main>
                 <h2>Ebaaa!</h2>
-                <p>O cadastro deu certo e foi enviado ao administrador para ser aprovado. Agora é só esperar {':)'}</p>
+                <p>O cadastro deu certo e já está disponível no site {':)'}</p>
                 <button>
                     <Link to="/app" className="button-link-map">
                         Voltar para o mapa

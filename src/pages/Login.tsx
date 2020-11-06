@@ -162,8 +162,8 @@ const Login = () => {
                                     />
                                 <label htmlFor="checkbox" >Lembrar-me</label>
                             </div>
-                            <Link to="/app" className="link-forgot-password" >
-                                Esqueci minha senha
+                            <Link to="/register" className="link-forgot-password" >
+                                Quero criar uma conta
                             </Link>
                         </div>
                     </fieldset>

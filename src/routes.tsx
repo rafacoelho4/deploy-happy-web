@@ -10,6 +10,7 @@ import Cadastro from './pages/Cadastro';
 import Page404 from './pages/Page404';
 import Logout from './pages/Logout';
 import Registered from './pages/Registered';
+import Dashboard from './pages/Dashboard';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
@@ -24,6 +25,8 @@ const Routes: React.FC = () => (
       <Route path="/login" component={Login} />
       <Route path="/register" component={Cadastro} />
       <Route path="/logout" component={Logout} />
+
+      <Route path="/user/:id" component={Dashboard} />
 
       <Route component={Page404} />
     </Switch>
