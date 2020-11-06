@@ -8,6 +8,8 @@ import Orphanage from './pages/Orphanage';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Page404 from './pages/Page404';
+import Logout from './pages/Logout';
+import Registered from './pages/Registered';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
@@ -15,11 +17,13 @@ const Routes: React.FC = () => (
       <Route path="/" exact component={Landing} />
       <Route path="/app" exact component={OrphanagesMap} />
 
-      <Route path="/orphanages/create" exact component={CreateOrphanage} />
+      <Route path="/orphanages/create/:id" exact component={CreateOrphanage} />
       <Route path="/orphanages/:id" exact component={Orphanage} />
+      <Route path="/success" component={Registered} />
 
       <Route path="/login" component={Login} />
       <Route path="/register" component={Cadastro} />
+      <Route path="/logout" component={Logout} />
 
       <Route component={Page404} />
     </Switch>
