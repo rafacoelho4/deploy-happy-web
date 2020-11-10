@@ -34,6 +34,12 @@ function OrphanagesMap() {
     }
   }
 
+  function shortName(name: String) {
+    const newName = name.slice(0, 16);
+    if(newName[15] === ' ') return newName.slice(0,15) + '...';
+    return newName + '...';
+  }
+
   useEffect(() => {
     token = localStorage.getItem('@token') as string;
     user_id = localStorage.getItem('@user_id') as string;
@@ -98,7 +104,12 @@ function OrphanagesMap() {
                   key={orphanage.id}
                 >
                   <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
-                    {orphanage.name}
+                    
+                    {
+                      orphanage.name.length >= 14 ? 
+                        (shortName(orphanage.name)) : 
+                        (`${orphanage.name}`)
+                    }
                     <Link to={`/orphanages/${orphanage.id}`} >
                       <FiArrowRight size={20} color="#fff" />
                     </Link>

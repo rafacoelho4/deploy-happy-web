@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiArrowLeft, FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiArrowLeft, FiEye, FiEyeOff, FiRefreshCcw } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 
 import icon from '../images/columnLogo.svg';
@@ -15,7 +15,9 @@ const Login = () => {
 
     const [ openSenha, setOpenSenha ] = useState(false);
 
-    const [errorStatus, setErrorStatus] = useState('');
+    const [ errorStatus, setErrorStatus ] = useState('');
+
+    const [ loadingSubmit, setLoadingSubmit ] = useState(false);
 
     let id = '';
     let token = '';
@@ -37,16 +39,20 @@ const Login = () => {
 
     async function handleSubmit(e: any) {
         e.preventDefault();
+        setLoadingSubmit(true);
         if (email === '') {
             setErrorStatus('412');
+            setLoadingSubmit(false);
             return;
         } else if (senha === '') {
             setErrorStatus('411');
+            setLoadingSubmit(false);
             return;
         }
         const validate = testEmail(email);
         if(!validate) {
             setErrorStatus('417');
+            setLoadingSubmit(false);
             return;
         }
         try {
@@ -64,7 +70,9 @@ const Login = () => {
                 history.push(`/user/${id}`);
                 id = '';
             });
+            setLoadingSubmit(false);
         } catch (error) {
+            setLoadingSubmit(false);
             let split = error.message.split(' ');
             let status = split[5];
             setErrorStatus(status);
@@ -169,7 +177,11 @@ const Login = () => {
                     </fieldset>
 
                     <button className="confirm-button" type="submit" onClick={e => handleSubmit(e)}>
-                        Entrar
+                        {
+                            loadingSubmit === true ? (
+                                <FiRefreshCcw size={26} color="#fff" className="loading-sign" />
+                            ) : 'Entrar'
+                        }
                     </button>
                 </form>
             </main>

@@ -80,6 +80,7 @@
   border-radius: 20px;
   overflow: hidden;
   outline: none;
+  margin-bottom: 10px;
   
   opacity: 0.6;
 }

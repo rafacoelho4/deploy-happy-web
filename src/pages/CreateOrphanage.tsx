@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 import { useHistory, useParams } from "react-router-dom";
-import { FiPlus, FiX } from "react-icons/fi";
+import { FiPlus, FiX, FiRefreshCcw } from "react-icons/fi";
 
 import '../styles/pages/create-orphanage.css';
 import Sidebar from '../components/Sidebar';
@@ -27,6 +27,8 @@ export default function CreateOrphanage() {
   const [ previewImages, setPreviewImages ] = useState<string[]>([]);
 
   const [ authToken, setAuthToken ] = useState('');
+
+  const [ loadingSubmit, setLoadingSubmit ] = useState(false);
 
   let token = '';
 
@@ -67,6 +69,8 @@ export default function CreateOrphanage() {
     event.preventDefault();
     const { lat, lng } = position;
 
+    setLoadingSubmit(true);
+
     try {
       const data = new FormData();
       data.append('name', name);
@@ -81,14 +85,14 @@ export default function CreateOrphanage() {
       images.forEach(image => {
         data.append('images', image)
       })
-      // console.log(`Bearer ${authToken}`)
       await api.post('/orphanages', data, { 
         headers: { 
             'Content-Type': 'application/json',
             'authorization': `Bearer ${authToken}`
       }});
-      // alert('Cadastro realizado');
       history.push('/success');
+
+      setLoadingSubmit(false);
     } catch (error) {
         console.log(error);
     }
@@ -96,7 +100,6 @@ export default function CreateOrphanage() {
 
   useEffect(() => {
     token = localStorage.getItem('@token') as string;
-    // console.log(`Token: ${token}`);
     setAuthToken(token);
     token = '';
   }, [token]);
@@ -115,11 +118,7 @@ export default function CreateOrphanage() {
               zoom={15}
               onclick={handleMapClick}
             >
-              {/* <TileLayer 
-                url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-              /> */}
               <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
               {
                 position.lat !== 0 && <Marker interactive={false} icon={mapIcon} position={[position.lat,position.lng]} />
               }
@@ -212,7 +211,11 @@ export default function CreateOrphanage() {
           </fieldset>
 
           <button className="confirm-button" type="submit" onClick={handleSubmit} >
-            Confirmar
+            {
+              loadingSubmit === true ? (
+                <FiRefreshCcw size={26} color="#fff" className="loading-sign" />
+              ) : 'Confirmar'
+            }
           </button>
         </form>
       </main>

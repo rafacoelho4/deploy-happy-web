@@ -18,6 +18,8 @@ const Cadastro = () => {
 
     const [ errorStatus, setErrorStatus ] = useState('');
 
+    const [ loadingSubmit, setLoadingSubmit ] = useState(false);
+
     let id = '';
     let token = '';
 
@@ -47,6 +49,7 @@ const Cadastro = () => {
 
     async function handleSubmit(e: any) {
         e.preventDefault();
+        setLoadingSubmit(true);
         if (email === '') {
             setErrorStatus('412');
             return;
@@ -83,6 +86,7 @@ const Cadastro = () => {
                 history.push(`/user/${id}`);
                 id = '';
             });
+            setLoadingSubmit(false);
         } catch (error) {
             // console.log(error);
             let split = error.message.split(' ');
@@ -93,8 +97,9 @@ const Cadastro = () => {
             } else if (status === '409') {
                 // alert('Senha inválida. Tente novamente.')
             } else {
-                alert('Erro ao fazer login. Tente novamente.')
+                // alert('Erro ao fazer login. Tente novamente.')
             }
+            setLoadingSubmit(false);
         }
     }
 
