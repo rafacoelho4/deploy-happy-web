@@ -30,6 +30,12 @@ export default function CreateOrphanage() {
 
   const [ loadingSubmit, setLoadingSubmit ] = useState(false);
 
+  const [ mapError, setMapError ] = useState(false);
+  const [ nameError, setNameError ] = useState(false);
+  const [ aboutError, setAboutError ] = useState(false);
+  const [ instructionsError, setInstructionsError ] = useState(false);
+  const [ openingError, setOpeningError ] = useState(false);
+
   let token = '';
 
   function handleMapClick(event: LeafletMouseEvent) {
@@ -71,6 +77,32 @@ export default function CreateOrphanage() {
 
     setLoadingSubmit(true);
 
+    console.log(position)
+    
+    setMapError(false);
+    setOpeningError(false);
+    setInstructionsError(false);
+    setAboutError(false);
+    setNameError(false);
+
+    if (position.lat === 0 || position.lng === 0) {
+      setMapError(true);
+    } if (name === '') {
+      setNameError(true);
+      setLoadingSubmit(false)
+    } if (about === '') {
+      setAboutError(true);
+      setLoadingSubmit(false)
+    } if (instructions === '') {
+      setInstructionsError(true);
+      setLoadingSubmit(false)
+    } if (opening_hours === '') {
+      setOpeningError(true);
+      setLoadingSubmit(false)
+    }
+
+    if (mapError || nameError || aboutError || instructionsError || openingError) return;
+
     try {
       const data = new FormData();
       data.append('name', name);
@@ -95,6 +127,7 @@ export default function CreateOrphanage() {
       setLoadingSubmit(false);
     } catch (error) {
         console.log(error);
+        setLoadingSubmit(false)
     }
   }
 
@@ -117,6 +150,7 @@ export default function CreateOrphanage() {
               style={{ width: '100%', height: 280 }}
               zoom={15}
               onclick={handleMapClick}
+              className={mapError === true ? 'errorMap' : ''}
             >
               <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               {
@@ -124,16 +158,18 @@ export default function CreateOrphanage() {
               }
             </Map>
 
-            <div className="input-block">
-              <label htmlFor="name">Nome</label>
+            <div className={nameError ? 'input-block error-block' : 'input-block'}>
+              <label 
+                htmlFor="name">Nome</label>
               <input 
                 id="name"
+                maxLength={150}
                 value={name}
                 onChange={e => setName(e.target.value)}
                 />
             </div>
 
-            <div className="input-block">
+            <div className={aboutError === true ? 'input-block error-block' : 'input-block'}>
               <label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
               <textarea 
                 id="name" 
@@ -174,21 +210,24 @@ export default function CreateOrphanage() {
           <fieldset>
             <legend>Visitação</legend>
 
-            <div className="input-block">
+            <div className={instructionsError === true ? 'input-block error-block' : 'input-block'}>
               <label htmlFor="instructions">Instruções</label>
               <textarea 
                 id="instructions"
+                maxLength={500}
                 value={instructions}
                 onChange={e => setInstructions(e.target.value)}
                 />
             </div>
 
-            <div className="input-block">
+            <div className={openingError === true ? 'input-block error-block' : 'input-block'}>
               <label htmlFor="opening_hours">Horário de Funcionamento</label>
               <input 
                 id="opening_hours"
+                maxLength={150}
                 value={opening_hours}
                 onChange={e => setOpeningHours(e.target.value)}
+                className={openingError === true ? 'error-input' : ''}
                 />
             </div>
 

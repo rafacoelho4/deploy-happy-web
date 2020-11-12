@@ -63,7 +63,13 @@ const MyOrphanages = () => {
         <div id="my-orph-page">
             <header>
                 <h2>Orfanatos cadastrados</h2>
-                <p>{`${user.orphanages.length}`} orfanatos</p>
+                {
+                    user.orphanages.length === 1 ? (
+                        <p>{`${user.orphanages.length}`} orfanato</p>
+                    ) : (
+                        <p>{`${user.orphanages.length}`} orfanatos</p>
+                    )
+                }
             </header>
 
             <div className={user.orphanages.length == 0 ? "empty-container" : "orphanages-container"}>

@@ -12,6 +12,10 @@ form.create-orphanage-form .leaflet-container {
   border-radius: 20px;
 }
 
+form.create-orphanage-form .leaflet-container.errorMap {
+  border: 1px solid #c92f2f;
+}
+
 form.create-orphanage-form {
   width: 700px;
   margin: 64px auto;
@@ -196,4 +200,14 @@ form.create-orphanage-form button.confirm-button svg {
 
 form.create-orphanage-form button.confirm-button:hover {
   background: #36CF82;
+}
+
+form.create-orphanage-form .error-block label {
+  color: #c92f2f;
+}
+
+form.create-orphanage-form .error-block input,
+form.create-orphanage-form .error-block textarea {
+  border: 1px solid#c92f2f;
+  color: #c92f2f;
 }
