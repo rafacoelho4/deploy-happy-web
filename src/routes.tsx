@@ -11,6 +11,8 @@ import Page404 from './pages/Page404';
 import Logout from './pages/Logout';
 import Registered from './pages/Registered';
 import Dashboard from './pages/Dashboard';
+import Delete from './pages/Delete';
+import EditOrphanage from './pages/EditOrphanage';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
@@ -27,6 +29,8 @@ const Routes: React.FC = () => (
       <Route path="/logout" component={Logout} />
 
       <Route path="/user/:id" component={Dashboard} />
+      <Route path="/delete/:user_id/:id" component={Delete} />
+      <Route path="/edit/:user_id/:id" component={EditOrphanage} />
 
       <Route component={Page404} />
     </Switch>
