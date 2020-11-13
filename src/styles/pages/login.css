@@ -1,6 +1,6 @@
 #login-page {
     display: flex;
-  }
+}
 
 #login-page aside {
     width: 70vw;
@@ -141,10 +141,6 @@ form.login-form button.confirm-button {
     transition: background-color 0.2s;
 }
   
-form.login-form button.confirm-button svg {
-    margin-right: 16px;
-}
-  
 form.login-form button.confirm-button:hover {
     background: #36CF82;
 }
@@ -227,4 +223,58 @@ form.login-form .input-block label {
 form.login-form .input-block .error-msg{
     color: #c50000;
     margin-right: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+    #login-page aside {
+        display: none !important;
+    }
+
+    #login-page main {
+        flex: 1;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #login-page form.login-form {
+        width: 70vw;
+        margin: auto;
+        padding: 0px;
+        border-radius: 0px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #login-page form.login-form {
+        width: 85vw;
+    }
+
+    form.login-form fieldset legend {
+        font-size: 26px !important;
+        margin-bottom: 20px !important;
+        padding-bottom: 10px !important;
+    }
+
+    form.login-form .input-block label {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #login-page aside {
+        display: none !important;
+    }
+
+    #login-page .link-forgot-password {
+        display: none;
+    }
+
+    #login-page .go-back {
+        border-radius: 12px !important;
+        top: 30px !important;
+        right: 30px !important;
+    }
 }
