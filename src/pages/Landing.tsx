@@ -10,7 +10,7 @@ import '../styles/pages/landing.css';
 const Landing: React.FC = () => (
   <div id="page-landing">
     <div className="content-wrapper">
-      <img src={logoImg} alt="Happy" />
+      <img src={logoImg} alt="Happy" id="children" />
 
       <main>
         <h1>Leve felicidade para o mundo</h1>
@@ -26,6 +26,10 @@ const Landing: React.FC = () => (
 
       <Link to="app" className="enter-app">
         <FiArrowRight name="arrow-right" size={26} color="rgba(0, 0, 0, 0.6)" />
+      </Link>
+
+      <Link to="app" className="enter-app-mobile">
+        <FiArrowRight size={30} color="rgba(0, 0, 0, 0.6)" className="mb-arrow" />
       </Link>
     </div>
   </div>
