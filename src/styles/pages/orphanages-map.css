@@ -1,8 +1,6 @@
 #page-map {
   width: 100vw;
   height: 100vh;
-
-  position: relative;
   display: flex;
 }
 
@@ -35,7 +33,12 @@
   line-height: 24px;
 }
 
-#page-map aside footer strong {
+#page-map .location {
+  display: flex;
+  flex-direction: column;
+}
+
+#page-map aside footer .location strong {
   font-weight: 800;
 }
 
@@ -112,7 +115,6 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  position: relative;
   z-index: 10;
   margin-right: 20px;
 }
@@ -124,18 +126,11 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  /* padding-left: 10px; */
-  /* border-left: 10px solid #17d6eb; */
-  position: relative;
   z-index: 10;
 }
 
 #page-map aside .login-link:hover {
   color: rgb(211, 255, 248);
-}
-
-#page-map aside .login-link:hover .login-icon {
-  transform: translateX(10px);
 }
 
 #page-map .floating-btn {
@@ -162,7 +157,129 @@
 }
 
 #page-map .logout {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: #15c3d6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+  z-index: 10;
   position: absolute;
   right: 40px;
   top: 40px;
+}
+
+@media screen and (max-width: 1024px) {
+  #page-map {
+    flex-direction: column;
+  }
+
+  #page-map aside {
+    padding: 20px 0px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #page-map aside h2 {
+    margin-top: 10px;
+    padding: 0px 20px;
+    font-size: 30px;
+    line-height: 32px;
+  }
+
+  #page-map aside p {
+    margin-top: 10px;
+    display: none;
+  }
+
+  #page-map aside header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 90%;
+  }
+
+  #page-map .logout {
+    left: 40px;
+    top: 85vh;
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+  }
+
+  #page-map .create-orph {
+    right: 40px;
+    top: 85vh;
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+  }
+
+  #page-map aside footer {
+    /* border: 2px solid purple; */
+    padding-top: 10px;
+    width: 90%;
+    flex-direction: row !important;  
+    line-height: 24px;
+    justify-content: space-evenly;
+    align-items: flex-end;
+  }
+
+  #page-map aside footer .location {
+    font-size: 18px;
+  }
+
+  #page-map aside .login-group{
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #page-map aside h2 {
+    font-size: 26px;
+    line-height: 28px;
+    margin-top: 20px;
+  }
+
+  #page-map aside p {
+    display: none;
+  }
+
+  #page-map aside {
+    padding: 15px;
+  }
+
+  #page-map aside header {
+    width: 90%;
+    /* border: 2px solid green; */
+  }
+
+  #page-map footer {
+    width: 100%;
+    padding: 0px;
+    justify-content: space-between;
+  }
+
+  #page-map aside footer .location {
+    font-size: 16px;
+  }
+
+  #page-map aside .login-link {
+    font-size: 18px;
+  }
+
+  #page-map aside .login-group{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #page-map aside .register-link {
+    margin-right: 0px;
+  }
 }

@@ -68,8 +68,10 @@ function OrphanagesMap() {
               <p>Muitas crianças estão esperando sua visita :{')'}</p>
           </header>
           <footer>
-              <strong>Ouro Preto</strong>
-              <span>Minas Gerais</span>
+              <div className="location">
+                <strong>Ouro Preto</strong>
+                <span>Minas Gerais</span>
+              </div>
               {
                 loggedIn === true ? '' : (
                   <div className="login-group">
@@ -135,7 +137,7 @@ function OrphanagesMap() {
 
         {
           loggedIn === true ? (
-            <Link to="/logout" className="floating-btn logout">
+            <Link to="/logout" className="logout">
               <FiLogOut size={32} color="#fff" />
             </Link>
           ) : ''
